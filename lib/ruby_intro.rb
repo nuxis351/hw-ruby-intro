@@ -40,7 +40,7 @@ def starts_with_consonant? s
 end
 
 def binary_multiple_of_4? s
-  if s.length.zero? or s.downcase.count("a-z").positive?
+  if s.length.zero? or s.downcase.count("a-z") > 0
     false
   elsif s.to_i(2)
     total = s.to_i(2)
@@ -51,11 +51,17 @@ end
 # Part 3
 
 class BookInStock
-  attr_accessor :isbn, :price
+  attr_reader :isbn, :price
   def initialize isbn, price
-    raise ArgumentError, "ISBN is empty" unless isbn.length.positive?
-    raise ArgumentError, "price is less than or equal to zero" unless price.positive?
+    self.isbn = isbn
+    self.price = price
+  end
+  def isbn=(isbn)
+    raise ArgumentError, "ISBN is empty" unless isbn.length > 0
     @isbn = isbn
+  end
+  def price=(price)
+    raise ArgumentError, "price is less than or equal to zero" unless price > 0
     @price = price
   end
   def price_as_string
