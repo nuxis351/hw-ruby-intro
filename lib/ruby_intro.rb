@@ -19,8 +19,8 @@ def sum_to_n? arr, n
   return false unless arr.count > 1
   arr.each do |item|
     new_arr = []
-    new_arr.replace(arr)
-    new_arr.delete_at(new_arr.index(item))
+    new_arr.replace arr
+    new_arr.delete_at new_arr.index(item)
     if new_arr.include? (n-item).abs
       return true
     end
@@ -31,19 +31,34 @@ end
 # Part 2
 
 def hello(name)
-  # YOUR CODE HERE
+  "Hello, #{name}"
 end
 
 def starts_with_consonant? s
-  # YOUR CODE HERE
+  return false unless s.length > 0
+  !(['A','E','I','O','U'].include? s[0].upcase) && s.upcase.count("A-Z").equal?(s.length)
 end
 
 def binary_multiple_of_4? s
-  # YOUR CODE HERE
+  if s.length.zero? or s.downcase.count("a-z").positive?
+    false
+  elsif s.to_i(2)
+    total = s.to_i(2)
+    (total % 4).zero?
+  end
 end
 
 # Part 3
 
 class BookInStock
-# YOUR CODE HERE
+  attr_accessor :isbn, :price
+  def initialize isbn, price
+    raise ArgumentError, "ISBN is empty" unless isbn.length.positive?
+    raise ArgumentError, "price is less than or equal to zero" unless price.positive?
+    @isbn = isbn
+    @price = price
+  end
+  def price_as_string
+    "$%0.2f" %[@price]
+  end
 end
